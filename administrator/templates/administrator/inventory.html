@@ -1,0 +1,161 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="main">
+    <div class="inventory-container">
+        <h2>Inventory Management</h2>
+
+        <div class="alert" id="stock-alert">Low stock detected! Please reorder soon.</div>
+
+        <button class="btn btn-add" onclick="openModal()">+ Add Battery</button>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Battery Type</th>
+                        <th>Quantity</th>
+                        <th>Unit Cost</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12V Lithium</td>
+                        <td>25</td>
+                        <td>$45.00</td>
+                        <td><span class="status in-stock">In Stock</span></td>
+                        <td>
+                            <button class="btn btn-edit">Edit</button>
+                            <button class="btn btn-delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9V Alkaline</td>
+                        <td>5</td>
+                        <td>$3.50</td>
+                        <td><span class="status low-stock">Low Stock</span></td>
+                        <td>
+                            <button class="btn btn-edit">Edit</button>
+                            <button class="btn btn-delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>AA NiMH</td>
+                        <td>0</td>
+                        <td>$2.75</td>
+                        <td><span class="status out-stock"> Stock</span></td>
+                        <td>
+                            <button class="btn btn-edit">Edit</button>
+                            <button class="btn btn-delete">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Form -->
+    <form action="">
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add New Battery</h3>
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                </div>
+
+                <input type="text" placeholder="Battery Type" required>
+                <input type="number" placeholder="Quantity" required>
+                <input type="text" placeholder="Unit Cost" required>
+                <button type="submit" class="btn btn-add">Save</button>
+
+            </div>
+        </div>
+
+    </form>
+
+    <div id="stock-warning-overlay"></div>
+
+    <div id="stock-warning-box">
+        <h3>Out of Stock Alert</h3>
+        <p id="stock-warning-text"></p>
+        <button onclick="hideStockWarning()">OK</button>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        function hideStockWarning() {
+            document.getElementById('stock-warning-box').classList.remove('show');
+            document.getElementById('stock-warning-overlay').classList.remove('show');
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const rows = document.querySelectorAll("tbody tr");
+            const flaggedProducts = [];
+
+            rows.forEach(row => {
+                const name = row.children[0].textContent.trim();
+                const status = row.children[3].textContent.trim().toLowerCase();
+
+                if (status === "out of stock" || status === "low stock") {
+                    flaggedProducts.push(`• ${name} — <strong>${status.replace(/^\w/, c => c.toUpperCase())}</strong>`);
+                }
+            });
+
+            if (flaggedProducts.length > 0) {
+                const message = flaggedProducts.join('<br>');
+                document.getElementById("stock-warning-text").innerHTML = message;
+
+                // Show popup after 5 seconds
+                setTimeout(() => {
+                    document.getElementById("stock-warning-box").classList.add('show');
+                    document.getElementById("stock-warning-overlay").classList.add('show');
+                }, 5000);
+            }
+        });
+    </script>
+
+
+
+    <script>
+        const modals = document.getElementById("modal");
+        const openBtns = document.querySelector(".btn-add");
+        const closeBtns = document.querySelector(".close-btn");
+
+        // Open modal
+        openBtns.addEventListener("click", (e) => {
+            e.preventDefault(); 
+            modals.style.display = "flex";
+        });
+
+        // Close modal on X click
+        closeBtns.addEventListener("click", () => {
+            modals.style.display = "none";
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modals.style.display = "none";
+            }
+        });
+    </script>
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

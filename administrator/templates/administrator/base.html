@@ -37,14 +37,14 @@
         <div class="nav-upper-options">
 
           <!-- home button -->
-          <a href="">
+          <a href="{% url 'administrator' %}">
 
             <div class="nav-option option1 button active">
               <h3><i class="fa-solid fa-house"></i> Dashboard</h3>
             </div>
           </a>
           <!-- acivities button -->
-          <a href="">
+          <a href="{% url 'inventory' %}">
 
             <div class="nav-option option1 button">
               <h3><i class="fa-solid fa-chart-simple"></i> Manage Inventory</h3>
@@ -53,7 +53,7 @@
 
 
           <!-- registration button -->
-          <a href="">
+          <a href="{% url 'report' %}">
 
             <div class="nav-option option1 button ">
               <h3> <i class="fa-solid fa-cash-register"></i> View Reports</h3>
@@ -62,14 +62,14 @@
 
 
           <!-- registration button -->
-          <a href="">
+         <a href="{% url 'income_expenses' %}">
             <div class="nav-option option1 button">
               <h3> <i class="fa-solid fa-money-bill"></i> Income & Expenses</h3>
             </div>
           </a>
 
           <!-- team button -->
-          <a href="">
+       <a href="{% url 'stockHistory' %}">
             <div class="nav-option option1 button">
               <h3><i class="fa-solid fa-people-group"></i> Stock History</h3>
             </div>

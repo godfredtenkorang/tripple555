@@ -1,0 +1,104 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main">
+ <!-- Report Page -->
+<div class="report-container">
+  <h2>Reports</h2>
+
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <label>Filter by:</label>
+    <select id="filter-type">
+      <option value="day">Day</option>
+      <option value="month">Month</option>
+      <option value="year">Year</option>
+    </select>
+    <input type="date" id="filter-date" />
+    <button class="btn filter-btn">Apply</button>
+  </div>
+
+  <!-- Totals Summary -->
+  <div class="totals-summary">
+    <div class="summary-box income-box">
+      <p>Income</p>
+      <h3>$0.00</h3>
+    </div>
+    <div class="summary-box expense-box">
+      <p>Expenses</p>
+      <h3>$0.00</h3>
+    </div>
+    <div class="summary-box profit-box">
+      <p>Profit</p>
+      <h3>$0.00</h3>
+    </div>
+  </div>
+
+  <!-- Report Table -->
+  <div class="report-table-wrapper">
+    <table id="report-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2025-06-25</td>
+          <td>Battery Sale - 12V Lithium</td>
+          <td>Income</td>
+          <td>$450.00</td>
+        </tr>
+        <tr>
+          <td>2025-06-25</td>
+          <td>Battery Purchase - AA NiMH</td>
+          <td>Expense</td>
+          <td>$150.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Export Buttons -->
+  <div class="export-buttons">
+    <button class="btn export-pdf" onclick="exportPDF()">Export to PDF</button>
+    <button class="btn export-excel" onclick="exportExcel()">Export to Excel</button>
+  </div>
+</div>
+
+
+<script>
+function exportPDF() {
+  const printWindow = window.open('', '', 'height=800,width=1000');
+  printWindow.document.write('<html><head><title>Report PDF</title>');
+  printWindow.document.write('</head><body >');
+  printWindow.document.write(document.getElementById('report-table').outerHTML);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+}
+
+function exportExcel() {
+  const table = document.getElementById('report-table');
+  let html = table.outerHTML.replace(/ /g, '%20');
+  const uri = 'data:application/vnd.ms-excel;charset=utf-8,' + html;
+  const link = document.createElement('a');
+  link.href = uri;
+  link.download = 'report.xls';
+  link.click();
+}
+</script>
+
+</div>
+
+
+
+
+
+
+{% endblock %}
