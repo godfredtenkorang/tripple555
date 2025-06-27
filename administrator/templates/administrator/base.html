@@ -10,7 +10,160 @@
 </head>
 
 <body>
+ <header>
+
+    <div class="logosec">
+      <div class="logo">
+
+
+
+      </div>
+      <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+        class="icn menuicn" id="menuicn" alt="menu-icon">
+    </div>
+
+
+
+    <div class="message">
+      <h1>Admin Dashboard</h1>
+    </div>
+
+  </header>
+
+
+<div class="main-container">
+    <div class="navcontainer sidebar">
+      <nav class="nav">
+        <div class="nav-upper-options">
+
+          <!-- home button -->
+          <a href="{% url 'administrator' %}">
+
+            <div class="nav-option option1 button active">
+              <h3><i class="fa-solid fa-house"></i> Dashboard</h3>
+            </div>
+          </a>
+          <!-- acivities button -->
+          <a href="{% url 'inventory' %}">
+
+            <div class="nav-option option1 button">
+              <h3><i class="fa-solid fa-chart-simple"></i> Manage Inventory</h3>
+            </div>
+          </a>
+
+
+          <!-- registration button -->
+          <a href="{% url 'report' %}">
+
+            <div class="nav-option option1 button ">
+              <h3> <i class="fa-solid fa-cash-register"></i> View Reports</h3>
+            </div>
+          </a>
+
+
+          <!-- registration button -->
+         <a href="{% url 'income_expenses' %}">
+            <div class="nav-option option1 button">
+              <h3> <i class="fa-solid fa-money-bill"></i> Income & Expenses</h3>
+            </div>
+          </a>
+
+          <!-- team button -->
+       <a href="{% url 'stockHistory' %}">
+            <div class="nav-option option1 button">
+              <h3><i class="fa-solid fa-people-group"></i> Stock History</h3>
+            </div>
+          </a>
+
+          <div class="nav-option option1 button Settings">
+            <div class="sett-but">
+              <h3><i class="fa-solid fa-sliders"></i> Audit Logs </h3>
+              <i class="fa-solid fa-caret-down"></i>
+            </div>
+
+            <button class="darkMode-button">Change background Mode</button>
+          </div>
+
+          <!-- logout button -->
+
+          <div class="nav-option option1 button logout-btn">
+            <h3>Logout</h3>
+          </div>
+
+
+
+
+        </div>
+      </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {% block content %}{% endblock %}
+
+
+ <script>
+
+    // menu 
+    let menuicn = document.querySelector(".menuicn");
+    let nav = document.querySelector(".navcontainer");
+
+    menuicn.addEventListener("click", () => {
+      nav.classList.toggle("navclose");
+    })
+
+
+
+
+  </script>
+
+<script>
+  const counters = document.querySelectorAll('.counter');
+
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    const prefix = counter.getAttribute('data-prefix') || '';
+    let count = 0;
+    const speed = 100; // smaller = faster
+
+    const updateCount = () => {
+      const increment = target / speed;
+      if (count < target) {
+        count += increment;
+        counter.innerText = prefix + Math.floor(count).toLocaleString();
+        requestAnimationFrame(updateCount);
+      } else {
+        counter.innerText = prefix + target.toLocaleString();
+      }
+    };
+
+    updateCount();
+  });
+</script>
+
+
+
+
+
 </body>
 
 </html>
