@@ -1,0 +1,50 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block content %}
+<div class="main">
+    <h2>Audit Logs</h2>
+
+<div class="table-container">
+  <table id="auditLogTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>User</th>
+        <th>Role</th>
+        <th>Action</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2025-06-26</td>
+        <td>09:12 AM</td>
+        <td>admin</td>
+        <td>Admin</td>
+        <td>Login</td>
+        <td>User logged into the system</td>
+      </tr>
+      <tr>
+        <td>2025-06-26</td>
+        <td>10:03 AM</td>
+        <td>admin</td>
+        <td>Admin</td>
+        <td>Added Stock</td>
+        <td>Added 15 units of 12V 75Ah</td>
+      </tr>
+      <tr>
+        <td>2025-06-26</td>
+        <td>12:44 PM</td>
+        <td>accountant1</td>
+        <td>Accountant</td>
+        <td>Added Expense</td>
+        <td>GHS 200 for transport</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+{% endblock %}

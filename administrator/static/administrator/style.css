@@ -841,3 +841,61 @@ tr:hover {
   flex-wrap: wrap;
 }
 
+
+
+.filters {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filters input,
+    .filters select,
+    .filters button {
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+.table-container {
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 8px;
+  margin: 5% o;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+th {
+  background-color:var(--blue)
+;
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #f9fafb;
+}
+
+.added { color: green; font-weight: bold; }
+.removed { color: red; font-weight: bold; }
+.updated { color: #eab308; font-weight: bold; }
+

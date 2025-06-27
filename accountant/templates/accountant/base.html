@@ -1,13 +1,153 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'accountant/style.css' %}">
+    <link rel="stylesheet" href="{% static 'administrator/style.css' %}">
     <title>Tripple 555</title>
 </head>
+
 <body>
+ <header>
+
+    <div class="logosec">
+      <div class="logo">
+
+
+
+      </div>
+      <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+        class="icn menuicn" id="menuicn" alt="menu-icon">
+    </div>
+
+
+
+    <div class="message">
+      <h1>Admin Dashboard</h1>
+    </div>
+
+  </header>
+
+
+<div class="main-container">
+    <div class="navcontainer sidebar">
+    <nav class="nav">
+  <div class="nav-upper-options">
+
+    <!-- Dashboard -->
+      <a href="{% url 'accountant' %}">
+      <div class="nav-option option1 button active">
+        <h3><i class="fa-solid fa-house"></i> Dashboard</h3>
+      </div>
+    </a>
+
+    <!-- Income & Expenses -->
+      <a href="{% url 'income' %}">
+      <div class="nav-option option1 button">
+        <h3><i class="fa-solid fa-money-bill"></i> Income</h3>
+      </div>
+    </a>
+    <a href="{% url 'expenses' %}">
+      <div class="nav-option option1 button">
+        <h3><i class="fa-solid fa-money-bill"></i> Expenses</h3>
+      </div>
+    </a>
+
+    <!-- My Records -->
+    <a href="#">
+      <div class="nav-option option1 button">
+        <h3><i class="fa-solid fa-clipboard-list"></i> My Records</h3>
+      </div>
+    </a>
+
+    <!-- Reports (Optional) -->
+    <a href="#">
+      <div class="nav-option option1 button">
+        <h3><i class="fa-solid fa-chart-line"></i> Reports</h3>
+      </div>
+    </a>
+
+    <!-- Logout -->
+    <a href="#">
+      <div class="nav-option option1 button logout-btn">
+        <h3><i class="fa-solid fa-right-from-bracket"></i> Logout</h3>
+      </div>
+    </a>
+
+  </div>
+</nav>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {% block content %}{% endblock %}
+
+
+ <script>
+
+    // menu 
+    let menuicn = document.querySelector(".menuicn");
+    let nav = document.querySelector(".navcontainer");
+
+    menuicn.addEventListener("click", () => {
+      nav.classList.toggle("navclose");
+    })
+
+
+
+
+  </script>
+
+<script>
+  const counters = document.querySelectorAll('.counter');
+
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    const prefix = counter.getAttribute('data-prefix') || '';
+    let count = 0;
+    const speed = 100; // smaller = faster
+
+    const updateCount = () => {
+      const increment = target / speed;
+      if (count < target) {
+        count += increment;
+        counter.innerText = prefix + Math.floor(count).toLocaleString();
+        requestAnimationFrame(updateCount);
+      } else {
+        counter.innerText = prefix + target.toLocaleString();
+      }
+    };
+
+    updateCount();
+  });
+</script>
+
+
+
+
+
 </body>
+
 </html>

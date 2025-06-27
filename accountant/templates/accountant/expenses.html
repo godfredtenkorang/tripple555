@@ -1,0 +1,146 @@
+{% extends 'accountant/base.html' %}
+{% load static %}
+{% block content %}
+<div class="main">
+
+  <style>
+  
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="datetime-local"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input[readonly] {
+      background: #f3f3f3;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      background: #28a745;
+      color: white;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 15px;
+      }
+    }
+  </style>
+
+
+  <div class="form-container">
+    <h2>Record New Expense</h2>
+    <form id="expenseForm">
+
+      <div class="form-group">
+        <label for="category">Expense Category</label>
+        <select id="category" required>
+          <option value="">-- Select Category --</option>
+          <option value="Transport">Transport</option>
+          <option value="Utility">Utility</option>
+          <option value="Rent">Rent</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Amount (GHS)</label>
+        <input type="number" id="amount" min="0" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <label for="datetime">Date & Time</label>
+        <input type="datetime-local" id="datetime" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description (optional)</label>
+        <textarea id="description" placeholder="Enter brief description..."></textarea>
+      </div>
+
+      <button type="submit">Submit Expense</button>
+    </form>
+  </div>
+
+  <script>
+    // Auto-fill current datetime
+    const now = new Date();
+    const formatted = now.toISOString().slice(0, 16);
+    document.getElementById("datetime").value = formatted;
+
+    // Handle submission
+    document.getElementById("expenseForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Expense recorded successfully!");
+      // Connect this to backend using Django form or AJAX POST
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

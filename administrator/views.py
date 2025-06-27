@@ -15,3 +15,6 @@ def income_expenses(request):
 
 def stockHistory(request):
     return render(request, 'administrator/stockHistory.html')
+
+def audit(request):
+    return render(request, 'administrator/audit.html')
