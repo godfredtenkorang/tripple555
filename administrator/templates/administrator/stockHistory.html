@@ -1,8 +1,160 @@
 {% extends 'administrator/base.html' %}
 {% load static %}
 {% block content %}
+
 <div class="main">
-    
+    <div class="filters">
+    <input type="date" id="filterDate" />
+    <select id="filterBattery">
+      <option value="">-- Battery Type --</option>
+      <option value="12V 100Ah">12V 100Ah</option>
+      <option value="12V 75Ah">12V 75Ah</option>
+      <option value="6V 60Ah">6V 60Ah</option>
+    </select>
+    <button onclick="filterTable()">Filter</button>
+    <button onclick="resetFilter()">Reset</button>
+  <button onclick="exportToCSV()">Export to Excel</button>
+<button onclick="exportTableToPDF()">Export to PDF</button>
+
+  </div>
+
+  <!-- 📋 Table with static data -->
+  <div class="table-container">
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Action</th>
+        <th>Battery Type</th>
+        <th>Quantity Change</th>
+        <th>Done By</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2025-06-26</td>
+        <td>10:23 AM</td>
+        <td class="added">Added</td>
+        <td>12V 100Ah</td>
+        <td>+20</td>
+        <td>Admin</td>
+        <td>New stock</td>
+      </tr>
+      <tr>
+        <td>2025-06-25</td>
+        <td>02:15 PM</td>
+        <td class="removed">Sold</td>
+        <td>12V 75Ah</td>
+        <td>-3</td>
+        <td>Accountant</td>
+        <td>Customer sale</td>
+      </tr>
+      <tr>
+        <td>2025-06-24</td>
+        <td>09:40 AM</td>
+        <td class="updated">Updated</td>
+        <td>6V 60Ah</td>
+        <td>+5</td>
+        <td>Admin</td>
+        <td>Correction</td>
+      </tr>
+      <tr>
+        <td>2025-06-23</td>
+        <td>12:00 PM</td>
+        <td class="removed">Sold</td>
+        <td>12V 100Ah</td>
+        <td>-2</td>
+        <td>Accountant</td>
+        <td>Walk-in</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+  function filterTable() {
+    const date = document.getElementById("filterDate").value;
+    const battery = document.getElementById("filterBattery").value.toLowerCase();
+    const rows = document.querySelectorAll("#historyTable tbody tr");
+
+    rows.forEach(row => {
+      const rowDate = row.children[0].textContent;
+      const rowBattery = row.children[3].textContent.toLowerCase();
+      const matchDate = !date || rowDate === date;
+      const matchBattery = !battery || rowBattery.includes(battery);
+      row.style.display = matchDate && matchBattery ? "" : "none";
+    });
+  }
+
+  function resetFilter() {
+    document.getElementById("filterDate").value = "";
+    document.getElementById("filterBattery").value = "";
+    document.querySelectorAll("#historyTable tbody tr").forEach(row => row.style.display = "");
+  }
+
+  function exportToCSV() {
+    const table = document.getElementById("historyTable");
+    let csv = [];
+    for (let row of table.rows) {
+      let cols = [...row.cells].map(td => `"${td.textContent.trim()}"`);
+      csv.push(cols.join(","));
+    }
+    const csvBlob = new Blob([csv.join("\n")], { type: 'text/csv' });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(csvBlob);
+    a.download = "stock_history.csv";
+    a.click();
+  }
+
+  function exportTableToPDF() {
+    const table = document.getElementById("historyTable");
+    if (!table) {
+      alert("Table not found");
+      return;
+    }
+
+    const newWindow = window.open('', '', 'width=900,height=700');
+    const html = `
+      <html>
+        <head>
+          <title>Stock History Table</title>
+          <style>
+            body { font-family: 'Segoe UI', sans-serif; padding: 20px; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td {
+              border: 1px solid #ccc;
+              padding: 8px;
+              text-align: left;
+              white-space: nowrap;
+            }
+            th {
+              background-color: #f1f5f9;
+              font-weight: bold;
+            }
+          </style>
+        </head>
+        <body>
+          <h2>Stock History Report</h2>
+          ${table.outerHTML}
+        </body>
+      </html>
+    `;
+
+    newWindow.document.write(html);
+    newWindow.document.close();
+
+    // Ensure print starts after content loads
+    newWindow.onload = () => {
+      newWindow.focus();
+      newWindow.print();
+    };
+  }
+</script>
+
+
 </div>
 
 {% endblock %}
