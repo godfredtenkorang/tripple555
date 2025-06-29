@@ -2,7 +2,12 @@
 {% load static %}
 {% block content %}
 <div class="main">
+   <div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
     <h2>Audit Logs</h2>
+</div> 
+<div class="m">
 
 <div class="table-container">
   <table id="auditLogTable">
@@ -43,6 +48,8 @@
       </tr>
     </tbody>
   </table>
+</div>
+
 </div>
 
 </div>

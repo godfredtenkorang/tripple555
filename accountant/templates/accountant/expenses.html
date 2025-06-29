@@ -1,12 +1,10 @@
 {% extends 'accountant/base.html' %}
 {% load static %}
 {% block content %}
-<div class="main">
 
-  <style>
-  
 
-    .form-container {
+<style>
+  .form-container {
       max-width: 600px;
       margin: 0 auto;
       background: #fff;
@@ -73,11 +71,19 @@
         padding: 15px;
       }
     }
-  </style>
+</style>
+<div class="main">
+ <div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
+     <h2>Record New Expense</h2>
+    </div>
+</div>
+ <div class="m">
 
 
   <div class="form-container">
-    <h2>Record New Expense</h2>
+   
     <form id="expenseForm">
 
       <div class="form-group">
@@ -110,6 +116,8 @@
       <button type="submit">Submit Expense</button>
     </form>
   </div>
+
+ </div>
 
   <script>
     // Auto-fill current datetime

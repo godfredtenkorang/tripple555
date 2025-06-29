@@ -3,9 +3,17 @@
 {% block content %}
 
 <div class="main">
+   <div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
+     <h2>Income & Expense Trends</h2>
 
+    </div>
+</div>
+<div class="m">
+  
 <div class="trend-container">
-  <h2>Income & Expense Trends</h2>
+ 
 
   <!-- Filter Section -->
   <div class="trend-filter">
@@ -57,87 +65,8 @@
     </ul>
   </div>
 </div>
+</div>
 
-<!-- Chart.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-const rows = document.querySelectorAll("#data-table tbody tr");
-const labels = [], incomeData = [], expenseData = [], profitData = [];
-
-rows.forEach(row => {
-  const cells = row.querySelectorAll("td");
-  const label = cells[0].textContent.trim();
-  const income = parseFloat(cells[1].textContent.trim());
-  const expense = parseFloat(cells[2].textContent.trim());
-  labels.push(label);
-  incomeData.push(income);
-  expenseData.push(expense);
-  profitData.push(income - expense);
-});
-
-const ctx = document.getElementById('trendChart').getContext('2d');
-const trendChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: labels,
-    datasets: [
-      {
-        label: 'Income',
-        data: incomeData,
-        backgroundColor: '#059669'
-      },
-      {
-        label: 'Expenses',
-        data: expenseData,
-        backgroundColor: '#f97316'
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Amount ($)'
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        position: 'top'
-      },
-      title: {
-        display: true,
-        text: 'Monthly Income vs Expenses'
-      }
-    }
-  }
-});
-
-const bestMonthIndex = profitData.indexOf(Math.max(...profitData));
-const worstMonthIndex = profitData.indexOf(Math.min(...profitData));
-const totalIncome = incomeData.reduce((a, b) => a + b, 0);
-const totalExpense = expenseData.reduce((a, b) => a + b, 0);
-const netProfit = totalIncome - totalExpense;
-
-document.getElementById('summary-text').innerHTML = `
-  From ${labels[0]} to ${labels[labels.length - 1]}, your best month was <strong>${labels[bestMonthIndex]}</strong> with a profit of <strong>$${profitData[bestMonthIndex]}</strong>.
-  The lowest performing month was <strong>${labels[worstMonthIndex]}</strong>.
-  <br><br>
-  <strong>Total Income:</strong> $${totalIncome} &nbsp; | &nbsp;
-  <strong>Total Expenses:</strong> $${totalExpense} &nbsp; | &nbsp;
-  <strong>Net Profit:</strong> $${netProfit}
-`;
-
-// Optional: update chart based on filter
-const select = document.getElementById('trend-period');
-select.addEventListener('change', () => {
-  alert('Dynamic data update can be handled based on selected filter: ' + select.value);
-});
-</script>
 
 </div>
 

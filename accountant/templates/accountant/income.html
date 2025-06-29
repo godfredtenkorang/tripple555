@@ -69,10 +69,18 @@
 </style>
 <div class="main">
     
+ <div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
+     <h2>Add Income (Sales Entry)</h2>
 
 
+    </div>
+</div>
+<div class="m">
+  
   <div class="form-container">
-    <h2>Add Income (Sales Entry)</h2>
+  
     <form id="incomeForm">
       
       <div class="form-group">
@@ -108,6 +116,9 @@
       <button type="submit">Submit Sale</button>
     </form>
   </div>
+</div>
+
+</div>
 
   <script>
     // Auto-fill current datetime
@@ -122,8 +133,6 @@
       // Here you can do AJAX POST or Django form submission
     });
   </script>
-</div>
-
 
 
 {% endblock %}

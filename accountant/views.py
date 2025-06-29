@@ -9,3 +9,6 @@ def income(request):
 
 def expenses(request):
     return render(request, 'accountant/expenses.html')
+
+def reports(request):
+    return render(request, 'accountant/report.html')
