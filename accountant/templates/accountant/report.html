@@ -1,0 +1,87 @@
+{% extends 'accountant/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main">
+<div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
+      <h1>Report</h1>
+    </div>
+</div>
+ <div class="m">
+
+  
+  <div class="report-summary">
+    <div class="card">Total Income: <span id="totalIncome">GHS 0.00</span></div>
+    <div class="card">Total Expenses: <span id="totalExpenses">GHS 0.00</span></div>
+    <div class="card">Net Profit: <span id="netProfit">GHS 0.00</span></div>
+    <div class="card">Batteries Sold: <span id="batteriesSold">0</span></div>
+  </div>
+<form id="reportFilter" class="filter-form">
+    <label>From: <input type="date" id="startDate"></label>
+    <label>To: <input type="date" id="endDate"></label>
+    <label>Report Type:
+      <select id="reportType">
+        <option value="summary">Summary Report</option>
+        <option value="income">Income Only</option>
+        <option value="expenses">Expenses Only</option>
+      </select>
+    </label>
+    <button type="button" onclick="generateReport()">Generate</button>
+  </form>
+
+  <div class="table-container">
+    <table id="reportTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Battery</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Recorded By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example row -->
+        <tr>
+          <td>2025-06-26</td>
+          <td>Income</td>
+          <td>12V 100Ah</td>
+          <td>5</td>
+          <td>GHS 2500</td>
+          <td>Accountant</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="export-buttons">
+    <button onclick="exportToPDF()">Export as PDF</button>
+    <button onclick="exportToExcel()">Export as Excel</button>
+  </div>
+ </div>
+
+ 
+
+
+
+  <script>
+    function generateReport() {
+      alert("This will filter the report based on selected date and type.");
+    }
+
+    function exportToPDF() {
+      alert("Exporting as PDF (you can integrate jsPDF or similar libraries)");
+    }
+
+    function exportToExcel() {
+      alert("Exporting as Excel (use SheetJS or manually create a CSV)");
+    }
+  </script>
+</div>
+
+
+{% endblock %}

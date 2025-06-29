@@ -63,7 +63,7 @@
     </a>
 
     <!-- Reports (Optional) -->
-    <a href="#">
+  <a href="{% url 'reports' %}">
       <div class="nav-option option1 button">
         <h3><i class="fa-solid fa-chart-line"></i> Reports</h3>
       </div>
@@ -90,6 +90,19 @@
 
 
 
+<!-- Logout Confirmation Popup -->
+<div class="logout-popup" id="logoutPopup">
+  <div class="popup-content">
+    <h2>Are you sure you want to logout?</h2>
+    <div class="popup-actions">
+      <form method="POST" action="">
+        {% csrf_token %}
+        <button type="submit" class="yes-btn">Yes</button>
+      </form>
+      <button class="no-btn" onclick="closeLogoutPopup()">No</button>
+    </div>
+  </div>
+</div>
 
 
 
@@ -103,7 +116,18 @@
 
 
     {% block content %}{% endblock %}
+<script>
+  const logoutBtn = document.querySelector(".logout-btn");
+  const logoutPopup = document.getElementById("logoutPopup");
 
+  logoutBtn.addEventListener("click", () => {
+    logoutPopup.style.display = "flex";
+  });
+
+  function closeLogoutPopup() {
+    logoutPopup.style.display = "none";
+  }
+</script>
 
  <script>
 

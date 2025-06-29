@@ -3,7 +3,16 @@
 {% block content %}
 
 <div class="main">
-    <div class="filters">
+   <div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
+     <h2>Stock History</h2>
+
+
+    </div>
+</div>
+ <div class="m">
+   <div class="filters">
     <input type="date" id="filterDate" />
     <select id="filterBattery">
       <option value="">-- Battery Type --</option>
@@ -72,6 +81,8 @@
     </tbody>
   </table>
 </div>
+
+ </div>
 
 
 <script>

@@ -3,10 +3,17 @@
 {% block content %}
 
 <div class="main">
- <!-- Report Page -->
-<div class="report-container">
-  <h2>Reports</h2>
+ <div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
+     <h2>Reports</h2>
 
+
+    </div>
+</div>
+<div class="m">
+  <div class="report-container">
+ 
   <!-- Filter Section -->
   <div class="filter-section">
     <label>Filter by:</label>
@@ -68,6 +75,7 @@
     <button class="btn export-pdf" onclick="exportPDF()">Export to PDF</button>
     <button class="btn export-excel" onclick="exportExcel()">Export to Excel</button>
   </div>
+</div>
 </div>
 
 
