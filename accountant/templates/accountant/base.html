@@ -25,7 +25,7 @@
 
 
     <div class="message">
-      <h1>Admin Dashboard</h1>
+      <h1>Accountant Dashboard</h1>
     </div>
 
   </header>
@@ -56,7 +56,7 @@
     </a>
 
     <!-- My Records -->
-    <a href="#">
+    <a href="{% url 'my_records' %}">
       <div class="nav-option option1 button">
         <h3><i class="fa-solid fa-clipboard-list"></i> My Records</h3>
       </div>
@@ -95,7 +95,7 @@
   <div class="popup-content">
     <h2>Are you sure you want to logout?</h2>
     <div class="popup-actions">
-      <form method="POST" action="">
+      <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="yes-btn">Yes</button>
       </form>

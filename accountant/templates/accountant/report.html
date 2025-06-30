@@ -13,14 +13,15 @@
 
   
   <div class="report-summary">
-    <div class="card">Total Income: <span id="totalIncome">GHS 0.00</span></div>
-    <div class="card">Total Expenses: <span id="totalExpenses">GHS 0.00</span></div>
-    <div class="card">Net Profit: <span id="netProfit">GHS 0.00</span></div>
-    <div class="card">Batteries Sold: <span id="batteriesSold">0</span></div>
+    <div class="card">Total Income: <span id="totalIncome">GHS {{income_total|floatformat:2}}</span></div>
+    <div class="card">Total Expenses: <span id="totalExpenses">GHS {{expense_total|floatformat:2}}</span></div>
+    <div class="card">Net Profit: <span id="netProfit">GHS {{profit|floatformat:2}}</span></div>
+    <!-- <div class="card">Batteries Sold: <span id="batteriesSold">0</span></div> -->
   </div>
-<form id="reportFilter" class="filter-form">
-    <label>From: <input type="date" id="startDate"></label>
-    <label>To: <input type="date" id="endDate"></label>
+<form id="reportFilter" class="filter-form" method="get">
+  {% csrf_token %}
+    <label>From: <input type="date" name="date_from" id="startDate"></label>
+    <label>To: <input type="date" name="date_to" id="endDate"></label>
     <label>Report Type:
       <select id="reportType">
         <option value="summary">Summary Report</option>
@@ -28,7 +29,7 @@
         <option value="expenses">Expenses Only</option>
       </select>
     </label>
-    <button type="button" onclick="generateReport()">Generate</button>
+    <button type="submit" >Generate</button>
   </form>
 
   <div class="table-container">
