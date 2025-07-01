@@ -1,0 +1,114 @@
+{% extends 'accountant/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main">
+<div class="banner">
+    <img src="{% static 'administrator/img/banner.jpg' %}" alt="">
+    <div class="banner-text">
+      <h1>All Income records</h1>
+    </div>
+</div>
+ <div class="m">
+
+  
+  
+<form id="reportFilter" class="filter-form" method="get">
+  {% csrf_token %}
+    <label>From: <input type="date" name="date_from" id="startDate"></label>
+    <label>To: <input type="date" name="date_to" id="endDate"></label>
+    <label>Report Type:
+      <select id="reportType">
+        <option value="summary">Summary Report</option>
+        <option value="income">Income Only</option>
+        <option value="expenses">Expenses Only</option>
+      </select>
+    </label>
+    <button type="submit" >Generate</button>
+  </form>
+
+
+ 
+ <section class="table-container">
+ 
+
+ <table class="income-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Battery Type</th>
+        <th>Quantity Sold</th>
+        <th>Unit Price (₵)</th>
+        <th>Total Amount (₵)</th>
+        <th>Customer Name</th>
+        <th>Recorded By</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>2025-06-30</td>
+        <td>12V/100Ah</td>
+        <td>2</td>
+        <td>₵600.00</td>
+        <td>₵1,200.00</td>
+        <td>Kwame Mensah</td>
+        <td>John Doe</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>2025-06-29</td>
+        <td>12V/75Ah</td>
+        <td>1</td>
+        <td>₵450.00</td>
+        <td>₵450.00</td>
+        <td>Akua Baah</td>
+        <td>Jane Smith</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>2025-06-28</td>
+        <td>12V/150Ah</td>
+        <td>1</td>
+        <td>₵950.00</td>
+        <td>₵950.00</td>
+        <td>Yaw Boateng</td>
+        <td>John Doe</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+
+
+
+  
+  <div class="export-buttons">
+    <button onclick="exportToPDF()">Export as PDF</button>
+    <button onclick="exportToExcel()">Export as Excel</button>
+  </div>
+ </div>
+
+ 
+
+
+
+  <script>
+    function generateReport() {
+      alert("This will filter the report based on selected date and type.");
+    }
+
+    function exportToPDF() {
+      alert("Exporting as PDF (you can integrate jsPDF or similar libraries)");
+    }
+
+    function exportToExcel() {
+      alert("Exporting as Excel (use SheetJS or manually create a CSV)");
+    }
+  </script>
+</div>
+
+
+{% endblock %}

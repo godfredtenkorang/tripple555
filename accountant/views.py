@@ -199,3 +199,9 @@ def reports(request):
     }
     
     return render(request, 'accountant/report.html', context)
+
+def expensesrecords(request):
+    return render(request, 'accountant/expenses-records.html')
+
+def incomerecords(request):
+    return render(request, 'accountant/income-records.html')

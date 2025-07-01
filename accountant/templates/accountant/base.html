@@ -10,26 +10,30 @@
 </head>
 
 <body>
- <header>
-
-    <div class="logosec">
-      <div class="logo">
-
-
-
-      </div>
-      <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-        class="icn menuicn" id="menuicn" alt="menu-icon">
-    </div>
-
-
-
-    <div class="message">
-      <h1>Accountant Dashboard</h1>
-    </div>
-
-  </header>
-
+    <header>
+    
+        <div class="logosec">
+            <div class="logo">
+            
+    
+    
+            </div>
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+                class="icn menuicn" id="menuicn" alt="menu-icon">
+        </div>
+    
+    
+    
+        <div class="message">
+            <h1>Admin</h1>
+            
+            <button id="fullscreen-btn" class="fullscreen-btn">
+                <span class="fullscreen-icon">⛶</span> Fullscreen
+              </button>
+        </div>
+      
+       
+    </header>
 
 <div class="main-container">
     <div class="navcontainer sidebar">
@@ -55,12 +59,15 @@
       </div>
     </a>
 
-    <!-- My Records -->
-    <a href="{% url 'my_records' %}">
-      <div class="nav-option option1 button">
-        <h3><i class="fa-solid fa-clipboard-list"></i> My Records</h3>
-      </div>
-    </a>
+  <div class="nav-option option1 sideBarDrop button">
+  <h3><i class="fa-solid fa-clipboard-list"></i> My Records</h3>
+  <div class="sub-links">
+    <a href="{% url 'incomerecords' %}">Income</a>
+    <a href="{% url 'expensesrecords' %}">Expenses</a>
+  </div>
+</div>
+
+
 
     <!-- Reports (Optional) -->
   <a href="{% url 'reports' %}">
@@ -116,6 +123,21 @@
 
 
     {% block content %}{% endblock %}
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sideBarDrop = document.querySelector(".sideBarDrop");
+    const sublinks = document.querySelector(".sideBarDrop .sub-links");
+
+    sideBarDrop.addEventListener("click", () => {
+      sublinks.classList.toggle("showSub");
+    });
+  });
+</script>
+
+
+
+
 <script>
   const logoutBtn = document.querySelector(".logout-btn");
   const logoutPopup = document.getElementById("logoutPopup");
@@ -143,7 +165,98 @@
 
 
   </script>
+<script>
 
+// Persistent Fullscreen Controller
+document.addEventListener('DOMContentLoaded', function() {
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    
+    // Immediately attempt fullscreen if it was enabled before
+    if (localStorage.getItem('kbaFullscreen') === 'true') {
+        document.documentElement.requestFullscreen()
+            .catch(err => {
+                console.log('Fullscreen request error:', err);
+                // If fullscreen fails, ensure button state matches
+                localStorage.setItem('kbaFullscreen', 'false');
+            });
+    }
+
+    // Update button text based on current state
+    function updateButton() {
+        const isFullscreen = document.fullscreenElement !== null;
+        fullscreenBtn.innerHTML = isFullscreen ? 
+            '<span class="fullscreen-icon">⛶</span> Exit Fullscreen' : 
+            '<span class="fullscreen-icon">⛶</span> Fullscreen';
+    }
+
+    // Toggle fullscreen mode
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen()
+                .then(() => {
+                    localStorage.setItem('kbaFullscreen', 'true');
+                    updateButton();
+                })
+                .catch(err => {
+                    console.log('Fullscreen error:', err);
+                    localStorage.setItem('kbaFullscreen', 'false');
+                    updateButton();
+                });
+        } else {
+            document.exitFullscreen()
+                .then(() => {
+                    localStorage.setItem('kbaFullscreen', 'false');
+                    updateButton();
+                });
+        }
+    }
+
+    // Handle fullscreen change events
+    function handleFullscreenChange() {
+        updateButton();
+        // If user exits fullscreen via browser controls, update our state
+        if (!document.fullscreenElement) {
+            localStorage.setItem('kbaFullscreen', 'false');
+        }
+    }
+
+    // Set up event listeners
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    // Initial button update
+    updateButton();
+
+    // Special handling for page transitions
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && localStorage.getItem('kbaFullscreen') === 'true') {
+            // If page becomes visible and we should be in fullscreen
+            setTimeout(() => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen()
+                        .catch(err => console.log('Fullscreen restore error:', err));
+                }
+            }, 100);
+        }
+    });
+
+    // Ensure fullscreen is attempted before unload (for page transitions)
+    window.addEventListener('beforeunload', function() {
+        if (localStorage.getItem('kbaFullscreen') === 'true' && !document.fullscreenElement) {
+            document.documentElement.requestFullscreen()
+                .catch(err => console.log('Pre-navigation fullscreen error:', err));
+        }
+    });
+});
+
+
+
+
+
+ </script>
 <script>
   const counters = document.querySelectorAll('.counter');
 
