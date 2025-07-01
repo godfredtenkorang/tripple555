@@ -32,7 +32,33 @@
     <button type="submit" >Generate</button>
   </form>
 
-  <div class="table-container">
+ <div class="table-grid">
+ <div class="table-container">
+    <table id="reportTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Battery</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Recorded By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example row -->
+        <tr>
+          <td>2025-06-26</td>
+          <td>Income</td>
+          <td>12V 100Ah</td>
+          <td>5</td>
+          <td>GHS 2500</td>
+          <td>Accountant</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ <div class="table-container">
     <table id="reportTable">
       <thead>
         <tr>
@@ -58,6 +84,10 @@
     </table>
   </div>
 
+
+
+
+ </div>
   
   <div class="export-buttons">
     <button onclick="exportToPDF()">Export as PDF</button>
